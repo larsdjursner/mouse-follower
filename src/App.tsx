@@ -1,26 +1,25 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useCallback, useState } from "react";
 
-function App() {
+
+const width = window.innerWidth;
+const height = window.innerHeight;
+const circleRadius = 10;
+const initialMousePosition = { x:0, y:0 };
+
+const App = () => {
+  const [mousePos, setMousePos] = useState(initialMousePosition);
+
+  const handleMouseMove = useCallback((event) => {
+    console.log(event.clientX);
+    const { clientX, clientY } = event;
+    setMousePos({ x: clientX, y: clientY });
+  },[setMousePos]);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <svg width={width} height={height} onMouseMove={handleMouseMove}>
+      <circle cx={mousePos.x} cy={mousePos.y} r={circleRadius} />
+    </svg>
   );
-}
+};
 
 export default App;
