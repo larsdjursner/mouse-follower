@@ -17,6 +17,7 @@ const App = () => {
  
 
   const updateDimensions = () => {
+    console.log("get")
     setWidth(window.innerWidth);
     setHeight(window.innerHeight);
   };
@@ -26,13 +27,21 @@ const App = () => {
     return () => window.removeEventListener("resize", updateDimensions); //unmount
   }, []);
 
+  // useEffect(() => {
+  //   const timer = setTimeout(() => {
+  //     const { x:mouseX, y:mouseY} = mousePos;
+  //     setRectPos({x: mouseX-(rectDim.width/2), y: mouseY-(rectDim.width/2) });
+  //   }, 10);
+  //   return () => clearTimeout(timer);
+  // }, [mousePos]);
+
   const handleMouseMove = useCallback(
     (event) => {
       const { clientX, clientY } = event;
       setMousePos({ x: clientX, y: clientY });
 
 
-      if((mousePos.x >= rectPos.x && mousePos.x <= rectPos.x +rectDim.width) && (mousePos.x >= rectPos.y && mousePos.y <= rectPos.y - rectDim.height)) {
+      if((mousePos.x >= rectPos.x && mousePos.x <= rectPos.x + rectDim.width) && (mousePos.y >= rectPos.y && mousePos.y <= rectPos.y + rectDim.height)) {
         console.log('hit')
       }
 
